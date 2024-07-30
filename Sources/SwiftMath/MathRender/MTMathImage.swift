@@ -30,6 +30,7 @@ public class MTMathImage {
 
     public let labelMode: MTMathUILabelMode
     public let textAlignment: MTTextAlignment
+    public var minimumHeight: CGFloat = 0
 
     public var contentInsets: MTEdgeInsets = MTEdgeInsetsZero
     
@@ -53,7 +54,7 @@ extension MTMathImage {
     }
     private func intrinsicContentSize(_ displayList: MTMathListDisplay) -> CGSize {
         CGSize(width: displayList.width + contentInsets.left + contentInsets.right,
-               height: displayList.ascent + displayList.descent + contentInsets.top + contentInsets.bottom)
+               height: max(displayList.ascent + displayList.descent + contentInsets.top + contentInsets.bottom, minimumHeight))
     }
     public func asImage() -> (NSError?, MTImage?) {
         func layoutImage(size: CGSize, displayList: MTMathListDisplay) {
